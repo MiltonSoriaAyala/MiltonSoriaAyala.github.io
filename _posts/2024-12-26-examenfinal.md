@@ -1,6 +1,6 @@
 ---
 title: Examen Final
-date: 2024-12-26 00:00:00 +05:00
+date: 2024-12-28 00:00:00 +05:00
 categories: [security_monitoring, threat_detection, windows_forensics, endpoint_security]
 tags: [procmon, sysmon, event_logging, security_tools, malware_analysis, incident_response, threat_hunting, python, alternate_data_streams, advanced_threats, security_automation]  # TAG names should always be lowercase
 ---
