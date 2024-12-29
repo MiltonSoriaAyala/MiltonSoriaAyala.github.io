@@ -5,9 +5,7 @@ categories: [security_monitoring, threat_detection, windows_forensics, endpoint_
 tags: [procmon, sysmon, event_logging, security_tools, malware_analysis, incident_response, threat_hunting, python, alternate_data_streams, advanced_threats, security_automation]  # TAG names should always be lowercase
 ---
 
-
-
-# EXAMEN FINAL - (Análisis Integrado del uso de Procmon y Sysmon para la Detección de Amenazas Avanzadas)
+# EXAMEN FINAL (Análisis Integrado del uso de Procmon y Sysmon para la Detección de Amenazas Avanzadas)
 
 
 
