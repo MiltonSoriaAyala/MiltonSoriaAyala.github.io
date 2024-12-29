@@ -150,31 +150,31 @@ Para detectar el uso malicioso de ADS mediante Sysmon, se debe configurar el eve
 
 **A. Habilitar el Evento FileCreateStreamHash:**
 
-Asegurarse de que el evento 15 esté habilitado en la configuración de Sysmon. Esto se puede hacer editando el archivo de configuración XML de Sysmon y añadiendo una directiva <FileCreateStreamHash onmatch="include"/> dentro de la sección <EventFiltering>.
+Asegurarse de que el evento 15 esté habilitado en la configuración de Sysmon. Esto se puede hacer editando el archivo de configuración XML de Sysmon y añadiendo una directiva `<FileCreateStreamHash onmatch="include"/>` dentro de la sección `<EventFiltering>`.
 
 **B. Crear Filtros Específicos:**
 
 Utilizar filtros para detectar la creación o modificación de streams con nombres sospechosos. Algunos ejemplos incluyen:
 
-- Filtro por nombre del Stream:<TargetFilename condition="contains">:$DATA</TargetFilename>. Esto detecta la creación de flujos sin nombre (el flujo por defecto). Un filtro como este detectará todo, así que es necesario un mayor análisis para decidir si es o no malicioso.
+- Filtro por nombre del Stream:`<TargetFilename condition="contains">:$DATA</TargetFilename>`. Esto detecta la creación de flujos sin nombre (el flujo por defecto). Un filtro como este detectará todo, así que es necesario un mayor análisis para decidir si es o no malicioso.
 
-- Filtro por nombre del Stream:<TargetFilename condition="contains">:$Zone.Identifier</TargetFilename>. Este filtro detecta la creación o modificación del flujo que almacena información sobre la procedencia del archivo, como si fue descargado de internet. Un filtro como este detectará muchos falsos positivos.
+- Filtro por nombre del Stream:`<TargetFilename condition="contains">:$Zone.Identifier</TargetFilename>`. Este filtro detecta la creación o modificación del flujo que almacena información sobre la procedencia del archivo, como si fue descargado de internet. Un filtro como este detectará muchos falsos positivos.
 
-- Filtro por nombre del Stream: <TargetFilename condition="contains">.exe</TargetFilename>, Detectar la creación de un archivo que contiene la extensión de un ejecutable, aunque no es garantía que este sea un archivo ejecutable.
+- Filtro por nombre del Stream:` <TargetFilename condition="contains">.exe</TargetFilename>`, Detectar la creación de un archivo que contiene la extensión de un ejecutable, aunque no es garantía que este sea un archivo ejecutable.
 
-- Filtro por Hash: <Hashes condition="is not">SHA256=XXXXXXX</Hashes>. Donde XXXXXXX es el hash de un archivo que no es malicioso.
+- Filtro por Hash:`<Hashes condition="is not">SHA256=XXXXXXX</Hashes>`. Donde XXXXXXX es el hash de un archivo que no es malicioso.
 
-- Filtro por creación: <CreationUtcTime condition="is not">YYYY-MM-DDThh:mm:ss.ffffffZ</CreationUtcTime>, donde YYYY-MM-DDThh:mm:ss.ffffffZ representa la fecha y hora en UTC.
+- Filtro por creación: `<CreationUtcTime condition="is not">YYYY-MM-DDThh:mm:ss.ffffffZ</CreationUtcTime>`, donde YYYY-MM-DDThh:mm:ss.ffffffZ representa la fecha y hora en UTC.
 
-Combinar filtros para mayor precisión. Por ejemplo, combinar <TargetFilename condition="contains">.exe</TargetFilename> con un filtro de nombre de proceso padre para detectar que el proceso de la creación del archivo no es de confianza.
+Combinar filtros para mayor precisión. Por ejemplo, combinar `<TargetFilename condition="contains">.exe</TargetFilename>` con un filtro de nombre de proceso padre para detectar que el proceso de la creación del archivo no es de confianza.
 
 **C. Implementar exclusiones:**
 
 Excluir rutas conocidas: Se recomienda excluir rutas de archivos que se sabe que utilizan ADS legítimamente para evitar falsos positivos. Esto incluye:
 
-- Excluir los archivos de sistema que son utilizados para las copias de seguridad: <Image condition="is not">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>.
+- Excluir los archivos de sistema que son utilizados para las copias de seguridad: `<Image condition="is not">C:\Windows\System32\wbem\WmiPrvSE.exe</Image>`.
 
-- Excluir archivos de sistema: <Image condition="is not">C:\Windows</Image>
+- Excluir archivos de sistema: `<Image condition="is not">C:\Windows</Image>`
 
 **D. Alertas y Análisis:**
 
